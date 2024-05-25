@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','App\Http\Controllers\HomeController@index');
 Route::get('/home','App\Http\Controllers\HomeController@index');
 
+
+//---------------------------------ADMIN-----------------------------------------// 
+Route::get('/admin','App\Http\Controllers\AdminController@index');
+Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
+
+//-LOGIN-//
+Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
