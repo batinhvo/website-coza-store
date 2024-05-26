@@ -24,3 +24,9 @@ Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 
 //-LOGIN-//
 Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
+Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
+
+
+//-------------------------------CATEGORY-PRODUCT-------------------------------//
+Route::get('/add-category-product','App\Http\Controllers\CategoryController@add_category_product');
+Route::get('/all-category-product','App\Http\Controllers\CategoryController@all_category_product');
