@@ -113,23 +113,32 @@
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
+                            @foreach ($all_cate_pro as $key => $cate_pro)
                             <tr>
-                                <td><strong>001</strong></td>
-                                <td>COOLMEN</td>
-                                <td>hahahahahahahahahahahahahahahahahahahaha</td>
-                                <td><span class="badge bg-label-success">Active</span></td>
+                                <td><strong>{{$cate_pro->cate_id}}</strong></td>
+                                <td>{{$cate_pro->cate_name}}</td>
+                                <td>{{$cate_pro->cate_desc}}</td>
                                 <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-icon btn-outline-warning">
-                                        <i class="bx bx-edit-alt"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-icon btn-outline-danger">
-                                        <i class="bx bx-trash"></i>
-                                    </button>                                    
-                                </div>
+                                    <?php
+                                        if($cate_pro->cate_status == 'on') {
+                                            echo '<span class="badge bg-label-success"><i class=\'bx bx-show-alt\'></i></span>';
+                                        } else {
+                                            echo '<span class="badge bg-label-danger"><i class=\'bx bx-hide\'></i></span>';
+                                        }
+                                    ?>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-icon btn-outline-warning">
+                                            <i class="bx bx-edit-alt"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-outline-danger">
+                                            <i class="bx bx-trash"></i>
+                                        </button>                                    
+                                    </div>
                                 </td>
                             </tr>
-                            
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

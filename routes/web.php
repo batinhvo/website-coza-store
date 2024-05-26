@@ -30,3 +30,4 @@ Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
 //-------------------------------CATEGORY-PRODUCT-------------------------------//
 Route::get('/add-category-product','App\Http\Controllers\CategoryController@add_category_product');
 Route::get('/all-category-product','App\Http\Controllers\CategoryController@all_category_product');
+Route::post('/save-category-product','App\Http\Controllers\CategoryController@save_category_product');

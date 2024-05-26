@@ -10,26 +10,12 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <!-- Search -->
-        <div class="navbar-nav align-items-center">
-        <div class="nav-item d-flex align-items-center">
-            <i class="bx bx-search fs-4 lh-0"></i>
-            <input
-            type="text"
-            class="form-control border-0 shadow-none"
-            placeholder="Search..."
-            aria-label="Search..."
-            />
-        </div>
-        </div>
-        <!-- /Search -->
-
         <ul class="navbar-nav flex-row align-items-center ms-auto">
         <!-- Place this tag where you want the button to render. -->
         <li class="nav-item lh-1 me-3">
             <a
             class="github-button"
-            href="https://github.com/themeselection/CozaStore-html-admin-template-free"
+            href=""
             data-icon="octicon-star"
             data-size="large"
             data-show-count="true"
@@ -115,22 +101,30 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <h5 class="card-header text-center">ADD CATEGORY PRODUCT</h5>
-                    <div class="card-body">
-                        <form>
+                    <div class="card-body mt-5">
+                        <?php
+                            $message = Session::get('message');
+                            if ($message) {
+                                echo '<p class="text-danger">'.$message.'</p>';
+                                Session::put('message', null);
+                            }
+                        ?>
+                        <form action="{{URL::to('/save-category-product')}}" method="POST">
+                            {{ csrf_field() }}
                             <div class="form-group mb-3">
                                 <label for="defaultFormControlInput" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="category-product-name" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp"/>
+                                <input type="text" class="form-control" name="category_product_name" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp"/>
                                 <div id="defaultFormControlHelp" class="form-text"></div> <!-- message -->
                             </div>
                             <div class="form-group mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                <textarea class="form-control" name="category-product-desc" id="exampleFormControlTextarea1" rows="5" style="resize: none"></textarea>
+                                <textarea class="form-control" name="category_product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none"></textarea>
                             </div>
                             <div class="form-group form-check form-switch mb-3">
-                                <input class="form-check-input" name="category-product-show" type="checkbox" id="flexSwitchCheckDefault" />
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
+                                <input class="form-check-input" name="category_product_status" type="checkbox" id="flexSwitchCheckChecked" checked/>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
                             </div>
-                            <button type="button" name="add-category-product" class="btn btn-outline-primary mt-5">Add Category</button>
+                            <button type="submit" name="add-category-product" class="btn btn-outline-primary mt-5">Add Category</button>
                         </form>
                     </div>
                 </div>
