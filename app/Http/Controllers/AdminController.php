@@ -38,7 +38,7 @@ class AdminController extends Controller
             Session::put('admin_id', $result->id);
             return Redirect::to('/dashboard');
         } else {
-            Session::put('message', 'username or password incorrect. Please re-enter!');
+            Session::put('message', 'username or password incorrect<br> Please re-enter!');
             return Redirect::to('admin');
         }
     }

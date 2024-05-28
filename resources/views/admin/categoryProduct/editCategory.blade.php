@@ -99,58 +99,24 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-4">                    
-                    <h5 class="card-header text-center mb-5">ADD CATEGORY PRODUCT</h5>
-                    <?php
-                        $message = Session::get('message');
-                        if ($message) {                            
-                            echo '
-                            <script type="text/javascript">
-                                window.onload = function () { 
-                                    alert("' . $message . '")
-                                };
-                            </script>';                            
-                            Session::put('message', null);
-                        }
-                    ?>
-                    <div class="table-responsive text-nowrap" style="min-height: 300px">
-                        <table class="table table-hover" >
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Category Name</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                            @foreach ($all_cate_pro as $key => $cate_pro)
-                            <tr>
-                                <td><strong>{{$cate_pro->cate_id}}</strong></td>
-                                <td>{{$cate_pro->cate_name}}</td>
-                                <td>{{$cate_pro->cate_desc}}</td>
-                                <td>
-                                    <?php if($cate_pro->cate_status == 1) { ?>                                                                                        
-                                        <a href="{{URL::to('/unactive-category-product/'.$cate_pro->cate_id)}}" class="badge bg-label-success"><i class="bx bx-show-alt"></i></a>                                        
-                                    <?php } else { ?>
-                                        <a href="{{URL::to('/active-category-product/'.$cate_pro->cate_id)}}" class="badge bg-label-danger"><i class="bx bx-hide"></i></a>
-                                    <?php } ?>                                    
-                                </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a href="{{URL::to('/edit-category-product/'.$cate_pro->cate_id)}}" class="btn btn-icon btn-outline-warning">
-                                            <i class="bx bx-edit-alt"></i>
-                                        </a>
-                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-category-product/'.$cate_pro->cate_id)}}" type="button" class="btn btn-icon btn-outline-danger">
-                                            <i class="bx bx-trash"></i>
-                                        </a>                                    
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                <div class="card mb-4">
+                    <h5 class="card-header text-center">UPDATE CATEGORY PRODUCT</h5>
+                    <div class="card-body mt-5">  
+                        @foreach($cate_pro_edit as $key => $cate_edit)                      
+                        <form action="{{URL::to('/update-category-product/'.$cate_edit->cate_id)}}" method="POST">
+                            {{ csrf_field() }}
+                            <div class="form-group mb-3">
+                                <label for="defaultFormControlInput" class="form-label">Name</label>
+                                <input type="text" class="form-control" name="category_product_name" value="{{$cate_edit->cate_name}}" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp"/>
+                                <div id="defaultFormControlHelp" class="form-text"></div> <!-- message -->
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                                <textarea class="form-control" name="category_product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none">{{$cate_edit->cate_desc}}</textarea>
+                            </div>                            
+                            <button type="submit" name="update-category-product" class="btn btn-outline-primary mt-5">Update Category</button>
+                        </form>
+                        @endforeach
                     </div>
                 </div>
             </div>

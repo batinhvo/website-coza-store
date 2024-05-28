@@ -17,7 +17,7 @@ class CreateCategoryProductsTable extends Migration
             $table->Increments('cate_id');
             $table->string('cate_name');
             $table->text('cate_desc');
-            $table->varchar('cate_status');
+            $table->integer('cate_status');
             $table->timestamps();
         });
     }

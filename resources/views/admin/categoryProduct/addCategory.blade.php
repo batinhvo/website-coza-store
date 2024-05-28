@@ -104,8 +104,13 @@
                     <div class="card-body mt-5">
                         <?php
                             $message = Session::get('message');
-                            if ($message) {
-                                echo '<p class="text-danger">'.$message.'</p>';
+                            if ($message) {                            
+                                echo '
+                                <script type="text/javascript">
+                                    window.onload = function () { 
+                                        alert("' . $message . '")
+                                    };
+                                </script>';                            
                                 Session::put('message', null);
                             }
                         ?>
@@ -129,8 +134,5 @@
                     </div>
                 </div>
             </div>
-        
         </div>
-        
-
 @endsection

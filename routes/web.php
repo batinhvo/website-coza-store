@@ -40,3 +40,9 @@ Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
 Route::get('/add-category-product','App\Http\Controllers\CategoryController@add_category_product');
 Route::get('/all-category-product','App\Http\Controllers\CategoryController@all_category_product');
 Route::post('/save-category-product','App\Http\Controllers\CategoryController@save_category_product');
+Route::get('/edit-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@edit_category_product');
+Route::post('/update-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@update_category_product');
+Route::get('/delete-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@delete_category_product');
+
+Route::get('/active-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@active_category_product');
+Route::get('/unactive-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@unactive_category_product');
