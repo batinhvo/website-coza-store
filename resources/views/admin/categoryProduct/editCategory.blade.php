@@ -100,19 +100,19 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header text-center">UPDATE CATEGORY PRODUCT</h5>
-                    <div class="card-body mt-5">  
+                    <h5 class="card-header text-center fw-bolder">UPDATE CATEGORY PRODUCT</h5>
+                    <div class="card-body pt-5">  
                         @foreach($cate_pro_edit as $key => $cate_edit)                      
                         <form action="{{URL::to('/update-category-product/'.$cate_edit->cate_id)}}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group mb-3">
-                                <label for="defaultFormControlInput" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="category_product_name" value="{{$cate_edit->cate_name}}" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp"/>
+                                <label for="defaultFormControlInput" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" name="category_product_name" value="{{$cate_edit->cate_name}}" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp" required/>
                                 <div id="defaultFormControlHelp" class="form-text"></div> <!-- message -->
                             </div>
                             <div class="form-group mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                <textarea class="form-control" name="category_product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none">{{$cate_edit->cate_desc}}</textarea>
+                                <textarea class="form-control" name="category_product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none" required>{{$cate_edit->cate_desc}}</textarea>
                             </div>                            
                             <button type="submit" name="update-category-product" class="btn btn-outline-primary mt-5">Update Category</button>
                         </form>

@@ -100,8 +100,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header text-center">ADD CATEGORY PRODUCT</h5>
-                    <div class="card-body mt-5">
+                    <h5 class="card-header text-center fw-bolder">ADD CATEGORY PRODUCT</h5>
+                    <div class="card-body pt-5">
                         <?php
                             $message = Session::get('message');
                             if ($message) {                            
@@ -117,13 +117,13 @@
                         <form action="{{URL::to('/save-category-product')}}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group mb-3">
-                                <label for="defaultFormControlInput" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="category_product_name" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp"/>
+                                <label for="defaultFormControlInput" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" name="category_product_name" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp" required/>
                                 <div id="defaultFormControlHelp" class="form-text"></div> <!-- message -->
                             </div>
                             <div class="form-group mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                <textarea class="form-control" name="category_product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none"></textarea>
+                                <textarea class="form-control" name="category_product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none" required></textarea>
                             </div>
                             <div class="form-group form-check form-switch mb-3">
                                 <input class="form-check-input" name="category_product_status" type="checkbox" id="flexSwitchCheckChecked" checked/>

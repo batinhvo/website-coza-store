@@ -46,3 +46,7 @@ Route::get('/delete-category-product/{cate_pro_id}','App\Http\Controllers\Catego
 
 Route::get('/active-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@active_category_product');
 Route::get('/unactive-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@unactive_category_product');
+
+//-------------------------------PRODUCT-------------------------------//
+Route::get('/add-product','App\Http\Controllers\ProductController@add_products');
+Route::get('/all-product','App\Http\Controllers\ProductController@all_products');

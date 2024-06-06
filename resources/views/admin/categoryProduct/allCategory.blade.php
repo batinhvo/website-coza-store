@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">                    
-                    <h5 class="card-header text-center mb-5">ADD CATEGORY PRODUCT</h5>
+                    <h5 class="card-header text-center mb-5 fw-bolder">ADD CATEGORY PRODUCT</h5>
                     <?php
                         $message = Session::get('message');
                         if ($message) {                            

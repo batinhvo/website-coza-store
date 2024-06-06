@@ -152,6 +152,26 @@
                 </li>
               </ul>
             </li>
+
+            <!-- product -->
+            <li class="menu-item">
+              <a class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx bxs-label text-primary"></i><i class=''></i>
+                <div data-i18n="Account Settings">Product</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{URL::to('/add-product')}}" class="menu-link">
+                    <div data-i18n="Account">Add Product</div>
+                  </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="{{URL::to('/all-product')}}" class="menu-link">
+                    <div data-i18n="Connections">List Of All Product</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
             <!-- END PRODUCT -->
           </ul>
         </aside>
