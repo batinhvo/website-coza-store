@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">                    
-                    <h5 class="card-header text-center mb-5 fw-bolder">ALL CATEGORY PRODUCT</h5>
+                    <h5 class="card-header text-center mb-5 fw-bolder">ALL SIZE PRODUCT</h5>
                     <?php
                         $message = Session::get('message');
                         if ($message) {                            
@@ -118,35 +118,33 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Category Name</th>
-                                    <th>Description</th>
+                                    <th>Size Name</th>                                    
                                     <th>Status</th>
-                                    <th></th>
+                                    <!-- <th></th> -->
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                            @foreach ($all_cate_pro as $key => $cate_pro)
+                            @foreach ($all_size_pro as $key => $size_pro)
                             <tr>
-                                <td><strong>{{$cate_pro->cate_id}}</strong></td>
-                                <td>{{$cate_pro->cate_name}}</td>
-                                <td>{{$cate_pro->cate_desc}}</td>
+                                <td><strong>{{$size_pro->size_id}}</strong></td>
+                                <td>{{$size_pro->size_name}}</td>                                
                                 <td>
-                                    <?php if($cate_pro->cate_status == 1) { ?>                                                                                        
-                                        <a href="{{URL::to('/unactive-category-product/'.$cate_pro->cate_id)}}" class="badge bg-label-success"><i class="bx bx-show-alt"></i></a>                                        
+                                    <?php if($size_pro->size_status == 1) { ?>                                                                                        
+                                        <a href="{{URL::to('/unactive-size-product/'.$size_pro->size_id)}}" class="badge bg-label-success"><i class="bx bx-show-alt"></i></a>                                        
                                     <?php } else { ?>
-                                        <a href="{{URL::to('/active-category-product/'.$cate_pro->cate_id)}}" class="badge bg-label-danger"><i class="bx bx-hide"></i></a>
+                                        <a href="{{URL::to('/active-size-product/'.$size_pro->size_id)}}" class="badge bg-label-danger"><i class="bx bx-hide"></i></a>
                                     <?php } ?>                                    
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <div class="dropdown">
-                                        <a href="{{URL::to('/edit-category-product/'.$cate_pro->cate_id)}}" class="btn btn-icon btn-outline-warning">
+                                        <a href="{{URL::to('/edit-size-product/'.$size_pro->size_id)}}" class="btn btn-icon btn-outline-warning">
                                             <i class="bx bx-edit-alt"></i>
                                         </a>
-                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-category-product/'.$cate_pro->cate_id)}}" type="button" class="btn btn-icon btn-outline-danger">
+                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-size-product/'.$size_pro->size_id)}}" type="button" class="btn btn-icon btn-outline-danger">
                                             <i class="bx bx-trash"></i>
                                         </a>                                    
                                     </div>
-                                </td>
+                                </td> -->
                             </tr>
                             @endforeach
                             </tbody>

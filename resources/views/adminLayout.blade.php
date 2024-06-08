@@ -172,6 +172,33 @@
                 </li>
               </ul>
             </li>
+
+            <!-- size + color -->
+            <li class="menu-item">
+              <a class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx bxs-label text-primary"></i><i class=''></i>
+                <div data-i18n="Account Settings">Product Size + Color</div>
+              </a>
+              <ul class="menu-sub">      
+                <li class="menu-item">
+                  <a href="{{URL::to('/add-color-product')}}" class="menu-link">
+                    <div data-i18n="Account">Add Color</div>
+                  </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="{{URL::to('/all-color-product')}}" class="menu-link">
+                    <div data-i18n="Connections">List Of All Color</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{URL::to('/all-size-product')}}" class="menu-link">
+                    <div data-i18n="Connections">List Of All Size</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            
             <!-- END PRODUCT -->
           </ul>
         </aside>

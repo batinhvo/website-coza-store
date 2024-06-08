@@ -47,6 +47,19 @@ Route::get('/delete-category-product/{cate_pro_id}','App\Http\Controllers\Catego
 Route::get('/active-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@active_category_product');
 Route::get('/unactive-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@unactive_category_product');
 
+//-------------------------------SIZE-PRODUCT-------------------------------//
+Route::get('/all-size-product','App\Http\Controllers\CategoryController@all_size_product');
+Route::get('/active-size-product/{size_pro_id}','App\Http\Controllers\CategoryController@active_size_product');
+Route::get('/unactive-size-product/{size_pro_id}','App\Http\Controllers\CategoryController@unactive_size_product');
+
+//-------------------------------COLOR-PRODUCT-------------------------------//
+Route::get('/all-color-product','App\Http\Controllers\CategoryController@all_color_product');
+Route::post('/save-color-product','App\Http\Controllers\CategoryController@save_color_product');
+Route::get('/active-color-product/{color_pro_id}','App\Http\Controllers\CategoryController@active_color_product');
+Route::get('/unactive-color-product/{color_pro_id}','App\Http\Controllers\CategoryController@unactive_color_product');
+
+
 //-------------------------------PRODUCT-------------------------------//
 Route::get('/add-product','App\Http\Controllers\ProductController@add_products');
 Route::get('/all-product','App\Http\Controllers\ProductController@all_products');
+Route::post('/save-product','App\Http\Controllers\ProductController@save_products');

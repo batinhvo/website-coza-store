@@ -68,4 +68,55 @@ class CategoryController extends Controller
         DB::table('category_products')->where('cate_id', $cate_pro_id)->update(['cate_status'=>0]);        
         return Redirect::to('all-category-product');
     } 
+
+
+    /**--------------SIZE PRODUCT----------------- **/
+    public function all_size_product() {
+        $all_size_pro = DB::table('tbl_sizes')->get();
+        $manager_size_pro = view('admin/sizeColorProduct/allSize')->with('all_size_pro', $all_size_pro);
+        return view('adminLayout')->with('admin/sizeColorProduct/allSize', $manager_size_pro);
+    }
+    //show
+    public function active_size_product($size_pro_id) {
+        DB::table('tbl_sizes')->where('size_id', $size_pro_id)->update(['size_status'=>1]);        
+        return Redirect::to('all-size-product');
+    } 
+    //Hide
+    public function unactive_size_product($size_pro_id) {
+        DB::table('tbl_sizes')->where('size_id', $size_pro_id)->update(['size_status'=>0]);         
+        return Redirect::to('all-size-product');
+    } 
+
+    /**--------------COLOR PRODUCT----------------- **/
+    public function all_color_product() {
+        $all_color_pro = DB::table('tbl_colors')->get();
+        $manager_color_pro = view('admin/sizeColorProduct/allColor')->with('all_color_pro', $all_color_pro);
+        return view('adminLayout')->with('admin/sizeColorProduct/allColor', $manager_color_pro);
+    }
+    //save category
+    public function save_color_product(Request $request) {
+        $status = 1;
+        if($request->color_product_status == '') {
+            $status = 0;
+        }
+
+        $data = array();
+        $data['color_name'] = $request->color_product_name;        
+        $data['color_status'] = $status;
+
+        DB::table('tbl_colors')->insert($data);
+        Session::put('message', 'Added color product successfully!');
+        return Redirect::to('all-color-product');
+    }
+    //show
+    public function active_color_product($color_pro_id) {
+        DB::table('tbl_colors')->where('color_id', $color_pro_id)->update(['color_status'=>1]);        
+        return Redirect::to('all-color-product');
+    } 
+    //Hide
+    public function unactive_color_product($color_pro_id) {
+        DB::table('tbl_colors')->where('color_id', $color_pro_id)->update(['color_status'=>0]);         
+        return Redirect::to('all-color-product');
+    } 
+    
 }

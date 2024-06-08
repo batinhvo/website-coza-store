@@ -17,7 +17,7 @@
             class="github-button"
             href=""
             data-icon="octicon-star"
-            data-size="large"
+            data-color="large"
             data-show-count="true"
             aria-label="Star themeselection/CozaStore-html-admin-template-free on GitHub"
             >Star</a
@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">                    
-                    <h5 class="card-header text-center mb-5 fw-bolder">ALL CATEGORY PRODUCT</h5>
+                    <h5 class="card-header text-center mb-5 fw-bolder">ALL COLOR PRODUCT</h5>
                     <?php
                         $message = Session::get('message');
                         if ($message) {                            
@@ -118,39 +118,46 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Category Name</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                    <th></th>
+                                    <th>Color Name</th>                                    
+                                    <th>Status</th>                                    
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                            @foreach ($all_cate_pro as $key => $cate_pro)
+                            @foreach ($all_color_pro as $key => $color_pro)
                             <tr>
-                                <td><strong>{{$cate_pro->cate_id}}</strong></td>
-                                <td>{{$cate_pro->cate_name}}</td>
-                                <td>{{$cate_pro->cate_desc}}</td>
+                                <td><strong>{{$color_pro->color_id}}</strong></td>
+                                <td>{{$color_pro->color_name}}</td>                                
                                 <td>
-                                    <?php if($cate_pro->cate_status == 1) { ?>                                                                                        
-                                        <a href="{{URL::to('/unactive-category-product/'.$cate_pro->cate_id)}}" class="badge bg-label-success"><i class="bx bx-show-alt"></i></a>                                        
+                                    <?php if($color_pro->color_status == 1) { ?>                                                                                        
+                                        <a href="{{URL::to('/unactive-color-product/'.$color_pro->color_id)}}" class="badge bg-label-success"><i class="bx bx-show-alt"></i></a>                                        
                                     <?php } else { ?>
-                                        <a href="{{URL::to('/active-category-product/'.$cate_pro->cate_id)}}" class="badge bg-label-danger"><i class="bx bx-hide"></i></a>
+                                        <a href="{{URL::to('/active-color-product/'.$color_pro->color_id)}}" class="badge bg-label-danger"><i class="bx bx-hide"></i></a>
                                     <?php } ?>                                    
-                                </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a href="{{URL::to('/edit-category-product/'.$cate_pro->cate_id)}}" class="btn btn-icon btn-outline-warning">
-                                            <i class="bx bx-edit-alt"></i>
-                                        </a>
-                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-category-product/'.$cate_pro->cate_id)}}" type="button" class="btn btn-icon btn-outline-danger">
-                                            <i class="bx bx-trash"></i>
-                                        </a>                                    
-                                    </div>
-                                </td>
+                                </td>                                
                             </tr>
                             @endforeach
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <div class="card mb-4">                    
+                    <h5 class="card-header text-center fw-bolder">ADD COLOR PRODUCT</h5>
+                    
+                    <div class="table-responsive text-nowrap p-5">
+                    <form action="{{URL::to('/save-color-product')}}" method="POST">
+                            {{ csrf_field() }}
+                            <div class="form-group mb-3">
+                                <label for="defaultFormControlInput" class="form-label">Color Name</label>
+                                <input type="text" class="form-control" name="color_product_name" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp" required/>
+                                <div id="defaultFormControlHelp" class="form-text"></div> <!-- message -->
+                            </div>
+                            <div class="form-group form-check form-switch mb-3">
+                                <input class="form-check-input" name="color_product_status" type="checkbox" id="flexSwitchCheckChecked" checked/>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
+                            </div>
+                            <button type="submit" name="add-color-product" class="btn btn-outline-primary mt-5">Add Color</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -114,11 +114,11 @@
                                 Session::put('message', null);
                             }
                         ?>
-                        <form action="{{URL::to('/save-product')}}" method="POST">
+                        <form action="{{URL::to('/save-product')}}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="form-group mb-3">
-                                <label for="defaultFormControlInput" class="form-label">Category Name</label>
-                                <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" required>
+                                <label class="form-label">Category Name</label>
+                                <select class="form-select" name="category_product_id" id="exampleFormControlSelect1" aria-label="Default select example" required>
                                 <option selected>select category name</option>
                                 @foreach($categories as $key => $cate)
                                 <option value="{{$cate->cate_id}}">{{$cate->cate_name}}</option>
@@ -128,73 +128,47 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="defaultFormControlInput" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" name="category_product_name" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp" required/>
+                                <label class="form-label">Product Name</label>
+                                <input type="text" class="form-control" name="product_name" aria-describedby="defaultFormControlHelp" required/>
                                 <div id="defaultFormControlHelp" class="form-text"></div> <!-- message -->
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="defaultFormControlInput" class="form-label">Product Price</label>
-                                <input type="text" class="form-control" name="product_price" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp" required/>                                
+                                <label class="form-label">Product Price</label>
+                                <input type="text" class="form-control" name="product_price" aria-describedby="defaultFormControlHelp" required/>                                
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="defaultFormControlInput" class="form-label me-5">Product Size</label>
+                                <label class="form-label me-5 d-block">Product Size</label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="filterCheckboxfs" value="1" />
-                                    <label class="form-check-label me-5" for="inlineCheckbox1">Full Size</label>
+                                    <input class="form-check-input" type="checkbox" name="product_size[]" id="filterCheckboxfs" value="1"/>
+                                    <label class="form-check-label me-md-5">Full Size</label>
                                 </div>
                                 @foreach($sizes as $key => $size)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="filterCheckboxfs" name="size" value="{{$size->size_id}}" />
-                                    <label class="form-check-label" for="inlineCheckbox1">{{$size->size_name}}</label>
+                                    <input class="form-check-input" type="checkbox" name="product_size[]" data-name="size" value="{{$size->size_id}}"/>
+                                    <label class="form-check-label">{{$size->size_name}}</label>
                                 </div>
                                 @endforeach
-                                
-                                <!-- <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="size" value="s" />
-                                    <label class="form-check-label" for="inlineCheckbox1">S</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="size" value="m" />
-                                    <label class="form-check-label" for="inlineCheckbox2">M</label>
-                                </div>  
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="size" value="l" />
-                                    <label class="form-check-label" for="inlineCheckbox3">L</label>
-                                </div>  
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="size" value="xl"/>
-                                    <label class="form-check-label" for="inlineCheckbox4">XL</label>
-                                </div>                               -->
                             </div> 
                             
                             <div class="form-group mb-3">
-                                <label for="defaultFormControlInput" class="form-label me-5">Product Color</label>
+                                <label class="form-label me-5 d-block">Product Color</label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input full" type="checkbox" id="filterCheckboxfc" value="fc" />
-                                    <label class="form-check-label me-5" for="inlineCheckbox5">Full Color</label>
+                                    <input class="form-check-input full" type="checkbox" name="product_color[]" id="filterCheckboxfc" value="1"/>
+                                    <label class="form-check-label me-md-5">Full Color</label>
                                 </div>
+                                @foreach($colors as $key => $color)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="color" value="r" />
-                                    <label class="form-check-label" for="inlineCheckbox6">Red</label>
+                                    <input class="form-check-input" type="checkbox" name="product_color[]" data-name="color" value="{{$color->color_id}}"/>
+                                    <label class="form-check-label">{{$color->color_name}}</label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="color" value="b" />
-                                    <label class="form-check-label" for="inlineCheckbox7">Blue</label>
-                                </div>  
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="color" value="w" />
-                                    <label class="form-check-label" for="inlineCheckbox8">White</label>
-                                </div>  
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="color" value="g"/>
-                                    <label class="form-check-label" for="inlineCheckbox">Gray</label>
-                                </div>      
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="color" value="bk"/>
-                                    <label class="form-check-label" for="inlineCheckbox4">Black</label>
-                                </div>                        
+                                @endforeach                      
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="formFileMultiple" class="form-label">Product IMG</label>
+                                <input class="form-control" type="file" id="formFileMultiple" name="product_img" multiple/>
                             </div>
                                                      
                             <div class="form-group mb-3">
@@ -202,10 +176,10 @@
                                 <textarea class="form-control" name="product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none" required></textarea>
                             </div>
                             <div class="form-group form-check form-switch mb-3">
-                                <input class="form-check-input" name="category_product_status" type="checkbox" id="flexSwitchCheckChecked" checked/>
+                                <input class="form-check-input" name="product_status" type="checkbox" id="flexSwitchCheckChecked" checked/>
                                 <label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
                             </div>
-                            <button type="submit" name="add-category-product" class="btn btn-outline-primary mt-5">Add Category</button>
+                            <button type="submit" name="add-product" class="btn btn-outline-primary mt-5">Add Product</button>
                         </form>
                     </div>
                 </div>
@@ -217,12 +191,12 @@
                 const checkbox = document.querySelector('#filterCheckboxfs');
                 checkbox.addEventListener('change', function() {
                     if (checkbox.checked) {
-                        document.querySelectorAll('input[name="size"]').forEach(function(input) {
+                        document.querySelectorAll('input[dat-name="size"]').forEach(function(input) {
                             input.disabled = true;
                             input.checked = false;
                         });
                     } else {
-                        document.querySelectorAll('input[name="size"]').forEach(function(input) {
+                        document.querySelectorAll('input[data-name="size"]').forEach(function(input) {
                             input.disabled = false;
                         });
                     }
@@ -231,12 +205,12 @@
                 const checkboxc = document.querySelector('#filterCheckboxfc');
                 checkboxc.addEventListener('change', function() {
                     if (checkboxc.checked) {
-                        document.querySelectorAll('input[name="color"]').forEach(function(input) {
+                        document.querySelectorAll('input[data-name="color"]').forEach(function(input) {
                             input.disabled = true;
                             input.checked = false;
                         });
                     } else {
-                        document.querySelectorAll('input[name="color"]').forEach(function(input) {
+                        document.querySelectorAll('input[data-name="color"]').forEach(function(input) {
                             input.disabled = false;
                         });
                     }
