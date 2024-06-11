@@ -119,7 +119,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Color Name</th>                                    
-                                    <th>Status</th>                                    
+                                    <th>Show</th>                                    
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">

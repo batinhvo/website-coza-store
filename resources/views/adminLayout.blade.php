@@ -234,5 +234,52 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+      // Initialize tooltips
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+    </script>
+    
+    <script>     
+      //check box      
+      document.addEventListener('DOMContentLoaded', function() {
+        var checkboxes = document.querySelectorAll('input[data-name="size"');
+        var checkboxed = document.querySelectorAll('input[data-name="color"');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    checkboxes.forEach(function(cb) {
+                        if (cb !== checkbox) {
+                            cb.disabled = true;
+                        }
+                    });
+                } else {
+                    checkboxes.forEach(function(cb) {
+                        cb.disabled = false;
+                    });
+                }
+            });
+        });
+
+        checkboxed.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    checkboxed.forEach(function(cb) {
+                        if (cb !== checkbox) {
+                            cb.disabled = true;
+                        }
+                    });
+                } else {
+                    checkboxed.forEach(function(cb) {
+                        cb.disabled = false;
+                    });
+                }
+            });
+        });
+      });
+    </script>
   </body>
 </html>

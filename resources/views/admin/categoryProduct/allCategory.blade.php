@@ -120,7 +120,7 @@
                                     <th>ID</th>
                                     <th>Category Name</th>
                                     <th>Description</th>
-                                    <th>Status</th>
+                                    <th>Show</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -139,10 +139,10 @@
                                 </td>
                                 <td>
                                     <div class="dropdown">
-                                        <a href="{{URL::to('/edit-category-product/'.$cate_pro->cate_id)}}" class="btn btn-icon btn-outline-warning">
+                                        <a href="{{URL::to('/edit-category-product/'.$cate_pro->cate_id)}}" class="btn btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
                                             <i class="bx bx-edit-alt"></i>
                                         </a>
-                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-category-product/'.$cate_pro->cate_id)}}" type="button" class="btn btn-icon btn-outline-danger">
+                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-category-product/'.$cate_pro->cate_id)}}" type="button" class="btn btn-icon btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
                                             <i class="bx bx-trash"></i>
                                         </a>                                    
                                     </div>

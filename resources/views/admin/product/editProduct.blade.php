@@ -28,7 +28,7 @@
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-                <img src="public/dashboard/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                <img src="../public/dashboard/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
             </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header text-center fw-bolder">ADD PRODUCT</h5>
+                    <h5 class="card-header text-center fw-bolder">UPDATE PRODUCT</h5>
                     <div class="card-body pt-5">
                         <?php
                             $message = Session::get('message');
@@ -114,38 +114,40 @@
                                 Session::put('message', null);
                             }
                         ?>
-                        <form action="{{URL::to('/save-product')}}" method="POST" enctype="multipart/form-data">
+                        @foreach($pro_edit as $key => $edit)
+                        <form action="{{URL::to('/update-product/'.$edit->pro_id)}}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            
                             <div class="form-group mb-3">
                                 <label class="form-label">Category Name</label>
                                 <select class="form-select" name="category_product_id" id="exampleFormControlSelect1" aria-label="Default select example" required>
-                                <option selected>select category name</option>
                                 @foreach($categories as $key => $cate)
-                                <option value="{{$cate->cate_id}}">{{$cate->cate_name}}</option>
+                                    @if($cate->cate_id == $edit->cate_id)
+                                        <option value="{{$cate->cate_id}}" selected>{{$cate->cate_name}}</option>
+                                    @else
+                                        <option value="{{$cate->cate_id}}">{{$cate->cate_name}}</option>
+                                    @endif
                                 @endforeach
                                 </select>
-                                <!-- <div id="defaultFormControlHelp" class="form-text"></div> message -->
-                                @if ($errors->has('category_product_id'))
-                                    <p class="form-text help is-danger">{{ $errors->first('category_product_id') }}</p>
-                                @endif
+                                <div id="defaultFormControlHelp" class="form-text"></div> <!-- message -->
                             </div>
 
                             <div class="form-group mb-3">
                                 <label class="form-label">Product Name</label>
-                                <input type="text" class="form-control" name="product_name" aria-describedby="defaultFormControlHelp" required/>
+                                <input type="text" class="form-control" name="product_name" aria-describedby="defaultFormControlHelp" value="{{$edit->pro_name}}" required/>
                                 <div id="defaultFormControlHelp" class="form-text"></div> <!-- message -->
                             </div>
 
                             <div class="form-group mb-3">
                                 <label class="form-label">Product Price</label>
-                                <input type="text" class="form-control" name="product_price" aria-describedby="defaultFormControlHelp" required/>                                
+                                <input type="text" class="form-control" name="product_price" aria-describedby="defaultFormControlHelp" value="{{$edit->pro_price}}" required/>                                
                             </div>
 
                             <div class="form-group mb-3">
                                 <label class="form-label me-5 d-block">Product Size</label>
                                 @foreach($sizes as $key => $size)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="product_size[]" data-name="size" id="checkbox{{$size->size_id}}" value="{{$size->size_id}}"/>
+                                    <input class="form-check-input" type="checkbox" name="product_size[]" data-name="size" value="{{$size->size_id}}" {{ $size->size_id == $edit->size_id ? 'checked' : ''}}/>
                                     <label class="form-check-label">{{$size->size_name}}</label>
                                 </div>
                                 @endforeach
@@ -155,7 +157,7 @@
                                 <label class="form-label me-5 d-block">Product Color</label>
                                 @foreach($colors as $key => $color)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="product_color[]" data-name="color" id="checkboxc{{$color->color_id}}" value="{{$color->color_id}}"/>
+                                    <input class="form-check-input" type="checkbox" name="product_color[]" data-name="color" value="{{$color->color_id}}" {{ $color->color_id == $edit->color_id ? 'checked' : ''}}/>
                                     <label class="form-check-label">{{$color->color_name}}</label>
                                 </div>
                                 @endforeach                      
@@ -163,21 +165,22 @@
 
                             <div class="form-group mb-3">
                                 <label for="formFileMultiple" class="form-label">Product Images</label>
-                                <input class="form-control" type="file" id="formFileMultiple" name="product_img" multiple/>
+                                <input class="form-control" type="file" id="formFileMultiple" name="product_img" value="{{$edit->pro_img}}" multiple/>
+                                <img class="pt-2" src="{{URL::to('public/upload/products/'.$edit->pro_img)}}" width="100px" height="100px">
                             </div>
                                                      
                             <div class="form-group mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                <textarea class="form-control" name="product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none" required></textarea>
+                                <textarea class="form-control" name="product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none" required>{{$edit->pro_desc}}</textarea>
                             </div>
-                            <div class="form-group form-check form-switch mb-3">
-                                <input class="form-check-input" name="product_status" type="checkbox" id="flexSwitchCheckChecked" checked/>
-                                <label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
-                            </div>
-                            <button type="submit" name="add-product" class="btn btn-outline-primary mt-5">Add Product</button>
+                                                            
+                            <button type="submit" name="add-product" class="btn btn-outline-primary mt-5">Update Product</button>
                         </form>
+                        @endforeach 
                     </div>
                 </div>
             </div>
         </div>
+
+        
 @endsection

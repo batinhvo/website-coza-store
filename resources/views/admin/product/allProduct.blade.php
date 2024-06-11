@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">                    
-                    <h5 class="card-header text-center mb-5 fw-bolder">ALL SIZE PRODUCT</h5>
+                    <h5 class="card-header text-center mb-5 fw-bolder">ALL PRODUCT</h5>
                     <?php
                         $message = Session::get('message');
                         if ($message) {                            
@@ -118,33 +118,45 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Size Name</th>                                    
+                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Price</th>
+                                    <th>Size</th>
+                                    <th>Color</th>
+                                    <th>Description</th>
                                     <th>Show</th>
-                                    <!-- <th></th> -->
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                            @foreach ($all_size_pro as $key => $size_pro)
+                            @foreach ($all_pro as $key => $pro)
                             <tr>
-                                <td><strong>{{$size_pro->size_id}}</strong></td>
-                                <td>{{$size_pro->size_name}}</td>                                
+                                <td><strong>{{$pro->pro_id}}</strong></td>
+                                <td>{{$pro->cate_name}}</td>
+                                <td>{{$pro->pro_name}}</td>
+                                <td><img src="public/upload/products/{{$pro->pro_img}}" width="100%" height="100%"></td>
+                                <td>{{$pro->pro_price}}</td>
+                                <td>{{$pro->size_name}}</td>
+                                <td>{{$pro->color_name}}</td>
+                                <td>{{$pro->pro_desc}}</td>
                                 <td>
-                                    <?php if($size_pro->size_status == 1) { ?>                                                                                        
-                                        <a href="{{URL::to('/unactive-size-product/'.$size_pro->size_id)}}" class="badge bg-label-success"><i class="bx bx-show-alt"></i></a>                                        
+                                    <?php if($pro->pro_status == 1) { ?>                                                                                        
+                                        <a href="{{URL::to('/unactive-product/'.$pro->pro_id)}}" class="badge bg-label-success"><i class="bx bx-show-alt"></i></a>                                        
                                     <?php } else { ?>
-                                        <a href="{{URL::to('/active-size-product/'.$size_pro->size_id)}}" class="badge bg-label-danger"><i class="bx bx-hide"></i></a>
+                                        <a href="{{URL::to('/active-product/'.$pro->pro_id)}}" class="badge bg-label-danger"><i class="bx bx-hide"></i></a>
                                     <?php } ?>                                    
                                 </td>
-                                <!-- <td>
+                                <td>
                                     <div class="dropdown">
-                                        <a href="{{URL::to('/edit-size-product/'.$size_pro->size_id)}}" class="btn btn-icon btn-outline-warning">
+                                        <a href="{{URL::to('/edit-product/'.$pro->pro_id)}}" class="btn btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
                                             <i class="bx bx-edit-alt"></i>
                                         </a>
-                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-size-product/'.$size_pro->size_id)}}" type="button" class="btn btn-icon btn-outline-danger">
+                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-product/'.$pro->pro_id)}}" type="button" class="btn btn-icon btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
                                             <i class="bx bx-trash"></i>
                                         </a>                                    
                                     </div>
-                                </td> -->
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -154,6 +166,5 @@
             </div>
         
         </div>
-        
 
 @endsection
