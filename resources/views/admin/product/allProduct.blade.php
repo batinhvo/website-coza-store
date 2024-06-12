@@ -130,41 +130,90 @@
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                            @foreach ($all_pro as $key => $pro)
-                            <tr>
-                                <td><strong>{{$pro->pro_id}}</strong></td>
-                                <td>{{$pro->cate_name}}</td>
-                                <td>{{$pro->pro_name}}</td>
-                                <td><img src="public/upload/products/{{$pro->pro_img}}" width="100%" height="100%"></td>
-                                <td>{{$pro->pro_price}}</td>
-                                <td>{{$pro->size_name}}</td>
-                                <td>{{$pro->color_name}}</td>
-                                <td>{{$pro->pro_desc}}</td>
-                                <td>
-                                    <?php if($pro->pro_status == 1) { ?>                                                                                        
-                                        <a href="{{URL::to('/unactive-product/'.$pro->pro_id)}}" class="badge bg-label-success"><i class="bx bx-show-alt"></i></a>                                        
-                                    <?php } else { ?>
-                                        <a href="{{URL::to('/active-product/'.$pro->pro_id)}}" class="badge bg-label-danger"><i class="bx bx-hide"></i></a>
-                                    <?php } ?>                                    
-                                </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a href="{{URL::to('/edit-product/'.$pro->pro_id)}}" class="btn btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
-                                            <i class="bx bx-edit-alt"></i>
-                                        </a>
-                                        <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-product/'.$pro->pro_id)}}" type="button" class="btn btn-icon btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
-                                            <i class="bx bx-trash"></i>
-                                        </a>                                    
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                            </tbody>
+                                @foreach ($all_pro as $key => $pro)
+                                <tr>
+                                    <td><strong>{{$pro->pro_id}}</strong></td>
+                                    <td>{{$pro->cate_name}}</td>
+                                    <td>{{$pro->pro_name}}</td>
+                                    <td><img src="public/upload/products/{{$pro->pro_img}}" width="100%" height="100%"></td>
+                                    <td>{{$pro->pro_price}}</td>
+                                    <td>{{$pro->size_name}}</td>
+                                    <td>{{$pro->color_name}}</td>
+                                    <td>{{$pro->pro_desc}}</td>
+                                    <td>
+                                        <?php if($pro->pro_status == 1) { ?>                                                                                        
+                                            <a href="{{URL::to('/unactive-product/'.$pro->pro_id)}}" class="badge bg-label-success"><i class="bx bxs-checkbox-checked"></i></a>                                        
+                                        <?php } else { ?>
+                                            <a href="{{URL::to('/active-product/'.$pro->pro_id)}}" class="badge bg-label-danger"><i class="bx bx-checkbox"></i></a>
+                                        <?php } ?>                                    
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a class="btn btn-icon btn-outline-info" data-bs-toggle="modal" data-bs-target="#fullscreenModal" data-bs-toggle="tooltip" title="Detail">
+                                                <i class="bx bx-detail"></i>
+                                            </a>
+                                            <a href="{{URL::to('/edit-product/'.$pro->pro_id)}}" class="btn btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
+                                                <i class="bx bx-edit-alt"></i>
+                                            </a>
+                                            <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-product/'.$pro->pro_id)}}" type="button" class="btn btn-icon btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
+                                                <i class="bx bx-trash"></i>
+                                            </a>                                    
+                                        </div>
+                                    </td>
+                                </tr>                                
+                                @endforeach
+                            </tbody>                            
                         </table>
                     </div>
                 </div>
+            </div>        
+        </div>
+
+        <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalFullTitle">Modal title</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-xxl flex-grow-1 container-p-y border row">
+                        <div class="col-md-6 border">
+                            <p>
+                                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
+                                facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
+                                at eros.
+                            </p>
+                        </div>
+                        <div class="col-md-6 border">
+                        <p>
+                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
+                            facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
+                            at eros.
+                        </p>
+                        </div>
+                        <div class="col-12 border">
+                        <p>
+                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
+                            facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
+                            at eros.
+                        </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-        
+            </div>
         </div>
 
 @endsection

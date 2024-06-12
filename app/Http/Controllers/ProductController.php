@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests;
 use Carbon\Carbon;
+use Validator;
 use Session;
 use DB;
 
@@ -21,6 +22,8 @@ class ProductController extends Controller
         $manager_cate_pro = view('admin/product/addProduct')->with('categories', $all_cate_pro)->with('sizes', $all_size)->with('colors', $all_color);
         return view('adminLayout')->with('admin/product/addProduct', $manager_cate_pro);       
     }
+
+
     //save product
     public function save_products(Request $request) {
         $status = 1;
@@ -29,13 +32,20 @@ class ProductController extends Controller
         }
         $date = Carbon::now('Asia/Ho_Chi_Minh');
 
-        $validatedData = $request->validate([
-            'cate_id' => 'required|unique:posts',
+        $validator = Validator::make($request->all(), [
+            'category_product_id' => 'bail|alpha_num|required',
+            'product_size' => 'bail|required',
+            'product_color' => 'required',
+        ],
+        [
+            'category_product_id.alpha_num' => 'Please select a product category',
+            'product_size.required' => 'Please select a product size',
+            'product_color.required' => 'Please select a product color',
         ]);
 
-        if ($validatedData->fails()) {
-            return Redirect::to('add-product');
-        }
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }       
 
         $data = array();
         $data['cate_id'] = $request->category_product_id;
@@ -48,25 +58,23 @@ class ProductController extends Controller
         $data['created_at'] = $date->toDateTimeString();
         $get_image = $request->file('product_img');
 
-        // if($get_image) {            
-        //     $name_img = sprintf("coza-store-product-%d", rand(0,99999));
-        //     $new_img = $name_img.'.'.$get_image->getClientOriginalExtension();
-        //     $get_image->move('public/upload/products', $new_img);
-        //     $data['pro_img'] = $new_img;
-        //     DB::table('tbl_products')->insert($data);
-        //     Session::put('message', 'Added product successfully!');
-        //     return Redirect::to('add-product');
-        //     echo $name_img;
-        // }
-        // $data['pro_img'] = 'no pictures';
-        // DB::table('tbl_products')->insert($data);
-        // Session::put('message', 'Added product successfully!');
+        if($get_image) {            
+            $name_img = sprintf("coza-store-product-%d", rand(0,99999));
+            $new_img = $name_img.'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/products', $new_img);
+            $data['pro_img'] = $new_img;
+            DB::table('tbl_products')->insert($data);
+            Session::put('message', 'Added product successfully!');
+            return Redirect::to('add-product');
+            echo $name_img;
+        }
+        $data['pro_img'] = 'product-images.jpg';
+        DB::table('tbl_products')->insert($data);
+        Session::put('message', 'Added product successfully!');
         return Redirect::to('add-product');
-
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
     }
+
+
     //edit category
     public function edit_products($pro_id) {
         $all_cate_pro = DB::table('category_products')->where('cate_status', 1)->get();
@@ -85,6 +93,8 @@ class ProductController extends Controller
 
         return view('adminLayout')->with('admin/product/editProduct', $pro_edit);
     }
+
+
     //update product
     public function update_products(Request $request, $pro_id) {
         $date = Carbon::now('Asia/Ho_Chi_Minh');
@@ -113,12 +123,9 @@ class ProductController extends Controller
         DB::table('tbl_products')->where('pro_id', $pro_id)->update($data);
         Session::put('message', 'Updated product successfully!');
         return Redirect::to('all-product');
-
-        // echo '<pre>';
-        // print_r($data);
-        // echo '</pre>';
-
     }
+
+
     //delete product
     public function delete_products($pro_id) {
         $images = DB::table('tbl_products')->where('pro_id', $pro_id)->value('pro_img');
@@ -127,6 +134,8 @@ class ProductController extends Controller
         Session::put('message', 'Deleted product successfully!');
         return Redirect::to('all-product');
     }
+
+
     //all product
     public function all_products() {
         $all_pro = DB::table('tbl_products')
@@ -139,11 +148,15 @@ class ProductController extends Controller
         $manager_pro = view('admin/product/allProduct')->with('all_pro', $all_pro);
         return view('adminLayout')->with('admin/product/allProduct', $manager_pro);
     }
+
+
     //show category
     public function active_products($pro_id) {
         DB::table('tbl_products')->where('pro_id', $pro_id)->update(['pro_status'=>1]);        
         return Redirect::to('all-product');
     } 
+
+
     //Hide category
     public function unactive_products($pro_id) {
         DB::table('tbl_products')->where('pro_id', $pro_id)->update(['pro_status'=>0]);        

@@ -125,9 +125,9 @@
                                 @endforeach
                                 </select>
                                 <!-- <div id="defaultFormControlHelp" class="form-text"></div> message -->
-                                @if ($errors->has('category_product_id'))
-                                    <p class="form-text help is-danger">{{ $errors->first('category_product_id') }}</p>
-                                @endif
+                                @error('category_product_id')
+                                    <div class="error">{{ $errors->first('category_product_id') }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
@@ -149,6 +149,9 @@
                                     <label class="form-check-label">{{$size->size_name}}</label>
                                 </div>
                                 @endforeach
+                                @error('product_size')
+                                    <div class="error">{{ $errors->first('product_size') }}</div>
+                                @enderror
                             </div> 
                             
                             <div class="form-group mb-3">
@@ -158,12 +161,18 @@
                                     <input class="form-check-input" type="checkbox" name="product_color[]" data-name="color" id="checkboxc{{$color->color_id}}" value="{{$color->color_id}}"/>
                                     <label class="form-check-label">{{$color->color_name}}</label>
                                 </div>
-                                @endforeach                      
+                                @endforeach     
+                                @error('product_color')
+                                    <div class="error">{{ $errors->first('product_color') }}</div>
+                                @enderror                 
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="formFileMultiple" class="form-label">Product Images</label>
                                 <input class="form-control" type="file" id="formFileMultiple" name="product_img" multiple/>
+                                @error('product_img')
+                                    <div class="error">{{ $errors->first('product_img') }}</div>
+                                @enderror   
                             </div>
                                                      
                             <div class="form-group mb-3">

@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +18,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 //---------------------------------HOME-----------------------------------------// 
-Route::get('/','App\Http\Controllers\HomeController@index');
-Route::get('/home','App\Http\Controllers\HomeController@index');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index']);
 
 //---------------------------------ABOUT-----------------------------------------// 
-Route::get('/about','App\Http\Controllers\HomeController@about');
+Route::get('/about', [HomeController::class, 'about']);
 
 //---------------------------------CONTACT-----------------------------------------// 
-Route::get('/contact','App\Http\Controllers\HomeController@contact');
+Route::get('/contact', [HomeController::class, 'contact']);
 
 //---------------------------------BLOG-----------------------------------------// 
-Route::get('/blog','App\Http\Controllers\HomeController@blog');
+Route::get('/blog', [HomeController::class, 'blog']);
 
 
 
@@ -39,41 +43,41 @@ Route::get('/blog','App\Http\Controllers\HomeController@blog');
 
 //---------------------------------ADMIN-----------------------------------------// 
 Route::middleware(['authLogin'])->group(function () {
-    Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
-    Route::get('/add-category-product','App\Http\Controllers\CategoryController@add_category_product');
-    Route::get('/all-category-product','App\Http\Controllers\CategoryController@all_category_product');
-    Route::get('/all-color-product','App\Http\Controllers\CategoryController@all_color_product');
-    Route::get('/add-product','App\Http\Controllers\ProductController@add_products');
-    Route::get('/all-product','App\Http\Controllers\ProductController@all_products');
+    Route::get('/dashboard', [AdminController::class, 'show_dashboard']);
+    Route::get('/add-category-product', [CategoryController::class, 'add_category_product']);
+    Route::get('/all-category-product', [CategoryController::class, 'all_category_product']);
+    Route::get('/all-color-product', [CategoryController::class, 'all_color_product']);
+    Route::get('/all-size-product', [CategoryController::class, 'all_size_product']);
+    Route::get('/add-product', [ProductController::class, 'add_products']);
+    Route::get('/all-product', [ProductController::class, 'all_products']);
 });
 //-LOGIN-//
-Route::get('/admin','App\Http\Controllers\AdminController@index');
-Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
-Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
+Route::get('/admin', [AdminController::class, 'index']);
+Route::post('/admin-dashboard', [AdminController::class, 'dashboard']);
+Route::get('/admin-logout', [AdminController::class, 'logout']);
 
 //-------------------------------CATEGORY-PRODUCT-------------------------------//
-Route::post('/save-category-product','App\Http\Controllers\CategoryController@save_category_product');
-Route::get('/edit-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@edit_category_product');
-Route::post('/update-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@update_category_product');
-Route::get('/delete-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@delete_category_product');
-Route::get('/active-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@active_category_product');
-Route::get('/unactive-category-product/{cate_pro_id}','App\Http\Controllers\CategoryController@unactive_category_product');
+Route::post('/save-category-product',[CategoryController::class, 'save_category_product']);
+Route::get('/edit-category-product/{cate_pro_id}',[CategoryController::class, 'edit_category_product']);
+Route::post('/update-category-product/{cate_pro_id}',[CategoryController::class, 'update_category_product']);
+Route::get('/delete-category-product/{cate_pro_id}',[CategoryController::class, 'delete_category_product']);
+Route::get('/active-category-product/{cate_pro_id}',[CategoryController::class, 'active_category_product']);
+Route::get('/unactive-category-product/{cate_pro_id}',[CategoryController::class, 'unactive_category_product']);
 
 //-------------------------------SIZE-PRODUCT-------------------------------//
-Route::get('/active-size-product/{size_pro_id}','App\Http\Controllers\CategoryController@active_size_product');
-Route::get('/unactive-size-product/{size_pro_id}','App\Http\Controllers\CategoryController@unactive_size_product');
+Route::get('/active-size-product/{size_pro_id}',[CategoryController::class, 'active_size_product']);
+Route::get('/unactive-size-product/{size_pro_id}',[CategoryController::class, 'unactive_size_product']);
 
 //-------------------------------COLOR-PRODUCT-------------------------------//
-Route::post('/save-color-product','App\Http\Controllers\CategoryController@save_color_product');
-Route::get('/active-color-product/{color_pro_id}','App\Http\Controllers\CategoryController@active_color_product');
-Route::get('/unactive-color-product/{color_pro_id}','App\Http\Controllers\CategoryController@unactive_color_product');
+Route::post('/save-color-product',[CategoryController::class, 'save_color_product']);
+Route::get('/active-color-product/{color_pro_id}',[CategoryController::class, 'active_color_product']);
+Route::get('/unactive-color-product/{color_pro_id}',[CategoryController::class, 'unactive_color_product']);
 
 
 //-------------------------------PRODUCT-------------------------------//
-Route::post('/save-product','App\Http\Controllers\ProductController@save_products');
-Route::get('/edit-product/{pro_id}','App\Http\Controllers\ProductController@edit_products');
-Route::post('/update-product/{pro_id}','App\Http\Controllers\ProductController@update_products');
-Route::get('/delete-product/{pro_id}','App\Http\Controllers\ProductController@delete_products');
-
-Route::get('/active-product/{pro_id}','App\Http\Controllers\ProductController@active_products');
-Route::get('/unactive-product/{pro_id}','App\Http\Controllers\ProductController@unactive_products');
+Route::post('/save-product', [ProductController::class, 'save_products']);
+Route::get('/edit-product/{pro_id}', [ProductController::class, 'edit_products']);
+Route::post('/update-product/{pro_id}', [ProductController::class, 'update_products']);
+Route::get('/delete-product/{pro_id}', [ProductController::class, 'delete_products']);
+Route::get('/active-product/{pro_id}', [ProductController::class, 'active_products']);
+Route::get('/unactive-product/{pro_id}', [ProductController::class, 'unactive_products']);
