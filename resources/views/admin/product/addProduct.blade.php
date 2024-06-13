@@ -145,7 +145,7 @@
                                 <label class="form-label me-5 d-block">Product Size</label>
                                 @foreach($sizes as $key => $size)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="product_size[]" data-name="size" id="checkbox{{$size->size_id}}" value="{{$size->size_id}}"/>
+                                    <input class="form-check-input" type="checkbox" name="product_size[]" id="checkbox{{$size->size_id}}" value="{{$size->size_id}}"/>
                                     <label class="form-check-label">{{$size->size_name}}</label>
                                 </div>
                                 @endforeach

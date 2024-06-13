@@ -47,11 +47,14 @@ class ProductController extends Controller
             return back()->withErrors($validator)->withInput();
         }       
 
+        $proId = rand(0,99999);   
+
         $data = array();
+        $data['pro_id'] = $proId;
+        $data['cate_id'] = $request->category_product_id;
         $data['cate_id'] = $request->category_product_id;
         $data['pro_name'] = $request->product_name;
         $data['pro_price'] = $request->product_price;
-        $data['size_id'] = implode('', $request->product_size);
         $data['color_id'] = implode('', $request->product_color);       
         $data['pro_desc'] = $request->product_desc;
         $data['pro_status'] = $status;
@@ -70,6 +73,14 @@ class ProductController extends Controller
         }
         $data['pro_img'] = 'product-images.jpg';
         DB::table('tbl_products')->insert($data);
+
+        foreach ($request->product_size as $key => $val) {
+            $dataS = array();
+            $dataS['pro_id'] = $proId;
+            $dataS['size_id'] = $val;
+            DB::table('tbl_product_sizes')->insert($dataS);
+        }
+
         Session::put('message', 'Added product successfully!');
         return Redirect::to('add-product');
     }
@@ -84,12 +95,19 @@ class ProductController extends Controller
                     ->join('category_products', 'tbl_products.cate_id', '=', 'category_products.cate_id')
                     ->where('pro_id', $pro_id)
                     ->get();
+            
+        $all_size_pro = DB::table('tbl_product_sizes')
+                    ->join('tbl_products', 'tbl_product_sizes.pro_id', '=', 'tbl_products.pro_id')       
+                    ->join('tbl_sizes', 'tbl_product_sizes.size_id', '=', 'tbl_sizes.size_id')
+                    ->where('tbl_product_sizes.pro_id', $pro_id)
+                    ->get();  
 
         $pro_edit = view('admin/Product/editProduct')
                     ->with('pro_edit', $all_pro)
                     ->with('sizes', $all_size)
                     ->with('categories', $all_cate_pro)
-                    ->with('colors', $all_color);     
+                    ->with('sizePro', $all_size_pro)
+                    ->with('colors', $all_color);  
 
         return view('adminLayout')->with('admin/product/editProduct', $pro_edit);
     }
@@ -104,7 +122,6 @@ class ProductController extends Controller
         $data['cate_id'] = $request->category_product_id;
         $data['pro_name'] = $request->product_name;
         $data['pro_price'] = $request->product_price;
-        $data['size_id'] = implode('', $request->product_size);
         $data['color_id'] = implode('', $request->product_color);       
         $data['pro_desc'] = $request->product_desc;
         $data['updated_at'] = $date->toDateTimeString();
@@ -121,6 +138,14 @@ class ProductController extends Controller
             return Redirect::to('all-product');
         }
         DB::table('tbl_products')->where('pro_id', $pro_id)->update($data);
+
+        DB::table('tbl_product_sizes')->where('pro_id', $pro_id)->delete();
+        foreach ($request->product_size as $key => $val) {
+            $dataS = array();
+            $dataS['pro_id'] = $pro_id;
+            $dataS['size_id'] = $val;
+            DB::table('tbl_product_sizes')->insert($dataS);
+        }
         Session::put('message', 'Updated product successfully!');
         return Redirect::to('all-product');
     }
@@ -138,14 +163,23 @@ class ProductController extends Controller
 
     //all product
     public function all_products() {
+        $all_color = DB::table('tbl_colors')->where('color_status', 1)->get();
         $all_pro = DB::table('tbl_products')
-                    ->join('category_products', 'tbl_products.cate_id', '=', 'category_products.cate_id')
-                    ->join('tbl_sizes', 'tbl_products.size_id', '=', 'tbl_sizes.size_id')
-                    ->join('tbl_colors', 'tbl_products.color_id', '=', 'tbl_colors.color_id')
+                    ->join('category_products', 'tbl_products.cate_id', '=', 'category_products.cate_id')               
+                    ->join('tbl_colors', 'tbl_products.color_id', '=', 'tbl_colors.color_id')  
                     ->orderby('pro_id', 'DESC')
                     ->get();
+
+        $all_size = DB::table('tbl_product_sizes')
+                    ->join('tbl_products', 'tbl_product_sizes.pro_id', '=', 'tbl_products.pro_id')       
+                    ->join('tbl_sizes', 'tbl_product_sizes.size_id', '=', 'tbl_sizes.size_id')
+                    ->get();     
         
-        $manager_pro = view('admin/product/allProduct')->with('all_pro', $all_pro);
+        $manager_pro = view('admin/product/allProduct')
+                    ->with('all_pro', $all_pro)
+                    ->with('colors', $all_color)
+                    ->with('sizes', $all_size);
+            
         return view('adminLayout')->with('admin/product/allProduct', $manager_pro);
     }
 

@@ -121,42 +121,50 @@
                                     <th>Category</th>
                                     <th>Name</th>
                                     <th>Image</th>
-                                    <th>Price</th>
-                                    <th>Size</th>
-                                    <th>Color</th>
-                                    <th>Description</th>
+                                    <th>Price</th> 
+                                    <th>Size</th> 
+                                    <th>Color</th> 
+                                    <th>Description</th>                              
                                     <th>Show</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
                                 @foreach ($all_pro as $key => $pro)
-                                <tr>
+                                <tr class="content">
                                     <td><strong>{{$pro->pro_id}}</strong></td>
                                     <td>{{$pro->cate_name}}</td>
-                                    <td>{{$pro->pro_name}}</td>
-                                    <td><img src="public/upload/products/{{$pro->pro_img}}" width="100%" height="100%"></td>
+                                    <td class="name">{{$pro->pro_name}}</td>
+                                    <td><img src="public/upload/products/{{$pro->pro_img}}" width="50%" height="50%"></td>
                                     <td>{{$pro->pro_price}}</td>
-                                    <td>{{$pro->size_name}}</td>
-                                    <td>{{$pro->color_name}}</td>
-                                    <td>{{$pro->pro_desc}}</td>
                                     <td>
+                                        @foreach($sizes as $key => $size)
+                                            @if($pro->pro_id == $size->pro_id)
+                                                {{$size->size_name}},
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>{{$pro->color_name}}</td>
+                                    <td class="text-center">
+                                        <a class="btn btn-icon btn-outline-info view-detail-product" data-bs-toggle="modal" data-bs-target="#modalScrollable">
+                                            <i class="bx bx-detail" data-bs-toggle="tooltip" title="Detail"></i>
+                                        </a>
+                                    </td>
+                                    <td class="desc d-none">{{$pro->pro_desc}}</td>                                    
+                                    <td class="text-center">
                                         <?php if($pro->pro_status == 1) { ?>                                                                                        
                                             <a href="{{URL::to('/unactive-product/'.$pro->pro_id)}}" class="badge bg-label-success"><i class="bx bxs-checkbox-checked"></i></a>                                        
                                         <?php } else { ?>
-                                            <a href="{{URL::to('/active-product/'.$pro->pro_id)}}" class="badge bg-label-danger"><i class="bx bx-checkbox"></i></a>
+                                            <a href="{{URL::to('/active-product/'.$pro->pro_id)}}" class="badge bg-label-secondary"><i class="bx bx-checkbox"></i></a>
                                         <?php } ?>                                    
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <a class="btn btn-icon btn-outline-info" data-bs-toggle="modal" data-bs-target="#fullscreenModal" data-bs-toggle="tooltip" title="Detail">
-                                                <i class="bx bx-detail"></i>
+                                        <div class="dropdown">                                            
+                                            <a href="{{URL::to('/edit-product/'.$pro->pro_id)}}" class="btn btn-icon btn-outline-warning">
+                                                <i class="bx bx-edit-alt" data-bs-toggle="tooltip" title="Edit"></i>
                                             </a>
-                                            <a href="{{URL::to('/edit-product/'.$pro->pro_id)}}" class="btn btn-icon btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
-                                                <i class="bx bx-edit-alt"></i>
-                                            </a>
-                                            <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-product/'.$pro->pro_id)}}" type="button" class="btn btn-icon btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
-                                                <i class="bx bx-trash"></i>
+                                            <a onclick="return confirm('Are you sure to delete?')" href="{{URL::to('/delete-product/'.$pro->pro_id)}}" type="button" class="btn btn-icon btn-outline-danger">
+                                                <i class="bx bx-trash" data-bs-toggle="tooltip" title="Delete"></i>
                                             </a>                                    
                                         </div>
                                     </td>
@@ -169,51 +177,35 @@
             </div>        
         </div>
 
-        <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen" role="document">
-            <div class="modal-content">
+        <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="modalFullTitle">Modal title</h5>
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
+                    <h5 class="modal-title" id="modalScrollableTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="container-xxl flex-grow-1 container-p-y border row">
-                        <div class="col-md-6 border">
-                            <p>
-                                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                                facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-                                at eros.
-                            </p>
-                        </div>
-                        <div class="col-md-6 border">
-                        <p>
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                            facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-                            at eros.
-                        </p>
-                        </div>
-                        <div class="col-12 border">
-                        <p>
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                            facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-                            at eros.
-                        </p>
-                        </div>
-                    </div>
+                    <div id="proDesc"></div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                </div>
                 </div>
             </div>
-            </div>
         </div>
+
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+                const btnView = document.querySelectorAll('.view-detail-product');
+                btnView.forEach(view => {
+                    view.addEventListener('click', function () {
+                        var proDesc = view.closest('.content').querySelector('.desc').textContent;    
+                        var proName = view.closest('.content').querySelector('.name').textContent;                                   
+                        document.getElementById("proDesc").textContent = proDesc;
+                        document.getElementById("modalScrollableTitle").textContent = 'Description of ' + proName;
+                    });
+                });
+            });
+        </script>
 
 @endsection

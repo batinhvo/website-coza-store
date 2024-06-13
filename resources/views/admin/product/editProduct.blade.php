@@ -147,7 +147,11 @@
                                 <label class="form-label me-5 d-block">Product Size</label>
                                 @foreach($sizes as $key => $size)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="product_size[]" data-name="size" value="{{$size->size_id}}" {{ $size->size_id == $edit->size_id ? 'checked' : ''}}/>
+                                    <input class="form-check-input" type="checkbox" name="product_size[]" value="{{$size->size_id}}" 
+                                    @foreach($sizePro as $key => $vlu)
+                                    {{ $size->size_id == $vlu->size_id ? 'checked' : ''}}
+                                    @endforeach
+                                    />
                                     <label class="form-check-label">{{$size->size_name}}</label>
                                 </div>
                                 @endforeach
@@ -171,7 +175,7 @@
                                                      
                             <div class="form-group mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                <textarea class="form-control" name="product_desc" id="exampleFormControlTextarea1" rows="5" style="resize: none" required>{{$edit->pro_desc}}</textarea>
+                                <textarea class="form-control" name="product_desc" id="exampleFormControlTextarea1" rows="10" style="resize: none" required>{{$edit->pro_desc}}</textarea>
                             </div>
                                                             
                             <button type="submit" name="add-product" class="btn btn-outline-primary mt-5">Update Product</button>
