@@ -20,10 +20,14 @@ use App\Http\Controllers\ProductController;
 //---------------------------------HOME-----------------------------------------// 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
+Route::get('/view-product/{pro_id}', [HomeController::class, 'quick_view_products']);
 
 //---------------------------------ABOUT-----------------------------------------// 
 Route::get('/about', [HomeController::class, 'about']);
 
+//---------------------------------PRODUCT-----------------------------------------// 
+Route::get('/product', [HomeController::class, 'products']);
+Route::get('/product-detail', [HomeController::class, 'product_details']);
 //---------------------------------CONTACT-----------------------------------------// 
 Route::get('/contact', [HomeController::class, 'contact']);
 

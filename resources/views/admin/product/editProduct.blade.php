@@ -161,7 +161,11 @@
                                 <label class="form-label me-5 d-block">Product Color</label>
                                 @foreach($colors as $key => $color)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="product_color[]" data-name="color" value="{{$color->color_id}}" {{ $color->color_id == $edit->color_id ? 'checked' : ''}}/>
+                                    <input class="form-check-input" type="checkbox" name="product_color[]" value="{{$color->color_id}}" 
+                                    @foreach($colorPro as $key => $vlue)
+                                    {{ $color->color_id == $vlue->color_id ? 'checked' : ''}}
+                                    @endforeach
+                                    />
                                     <label class="form-check-label">{{$color->color_name}}</label>
                                 </div>
                                 @endforeach                      

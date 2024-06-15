@@ -179,12 +179,7 @@
                 <i class="menu-icon tf-icons bx bx bxs-label text-primary"></i><i class=''></i>
                 <div data-i18n="Account Settings">Product Size + Color</div>
               </a>
-              <ul class="menu-sub">      
-                <li class="menu-item">
-                  <a href="{{URL::to('/add-color-product')}}" class="menu-link">
-                    <div data-i18n="Account">Add Color</div>
-                  </a>
-                </li>                
+              <ul class="menu-sub">                   
                 <li class="menu-item">
                   <a href="{{URL::to('/all-color-product')}}" class="menu-link">
                     <div data-i18n="Connections">List Of All Color</div>
@@ -243,7 +238,7 @@
       })
     </script>
     
-    <script>     
+    <!-- <script>     
       //check box      
       document.addEventListener('DOMContentLoaded', function() {
         var checkboxes = document.querySelectorAll('input[data-name="size"');
@@ -280,6 +275,6 @@
             });
         });
       });
-    </script>
+    </script> -->
   </body>
 </html>

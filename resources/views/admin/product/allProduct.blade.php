@@ -122,9 +122,7 @@
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Price</th> 
-                                    <th>Size</th> 
-                                    <th>Color</th> 
-                                    <th>Description</th>                              
+                                    <th>Detail</th>                              
                                     <th>Show</th>
                                     <th></th>
                                 </tr>
@@ -137,17 +135,23 @@
                                     <td class="name">{{$pro->pro_name}}</td>
                                     <td><img src="public/upload/products/{{$pro->pro_img}}" width="50%" height="50%"></td>
                                     <td>{{$pro->pro_price}}</td>
-                                    <td>
+                                    <td class="size d-none">
                                         @foreach($sizes as $key => $size)
                                             @if($pro->pro_id == $size->pro_id)
-                                                {{$size->size_name}},
+                                                {{$size->size_name}}
                                             @endif
                                         @endforeach
                                     </td>
-                                    <td>{{$pro->color_name}}</td>
+                                    <td class="color d-none">
+                                        @foreach($colors as $key => $clo)
+                                            @if($pro->pro_id == $clo->pro_id)
+                                                {{$clo->color_name}}
+                                            @endif
+                                        @endforeach
+                                    </td>
                                     <td class="text-center">
                                         <a class="btn btn-icon btn-outline-info view-detail-product" data-bs-toggle="modal" data-bs-target="#modalScrollable">
-                                            <i class="bx bx-detail" data-bs-toggle="tooltip" title="Detail"></i>
+                                            <i class="bx bx-detail" data-bs-toggle="tooltip" title="Size, Color, Description"></i>
                                         </a>
                                     </td>
                                     <td class="desc d-none">{{$pro->pro_desc}}</td>                                    
@@ -185,7 +189,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="proDesc"></div>
+                    <div class="mb-2">
+                        <div class="fw-bolder">Color</div>
+                        <div id="proColor"></div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="fw-bolder">Size</div>
+                        <div id="proSize"></div>
+                    </div>
+                    <div class="">
+                        <div class="fw-bolder">Description</div>
+                        <div id="proDesc"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
@@ -199,10 +214,14 @@
                 const btnView = document.querySelectorAll('.view-detail-product');
                 btnView.forEach(view => {
                     view.addEventListener('click', function () {
+                        var proName = view.closest('.content').querySelector('.name').textContent;  
                         var proDesc = view.closest('.content').querySelector('.desc').textContent;    
-                        var proName = view.closest('.content').querySelector('.name').textContent;                                   
+                        var proSize = view.closest('.content').querySelector('.size').textContent; 
+                        var proColor = view.closest('.content').querySelector('.color').textContent;                                   
                         document.getElementById("proDesc").textContent = proDesc;
-                        document.getElementById("modalScrollableTitle").textContent = 'Description of ' + proName;
+                        document.getElementById("proSize").textContent = proSize;
+                        document.getElementById("proColor").textContent = proColor;
+                        document.getElementById("modalScrollableTitle").textContent = 'Detail of ' + proName;
                     });
                 });
             });

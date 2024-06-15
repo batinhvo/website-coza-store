@@ -275,7 +275,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</footer>
 
-
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
 		<span class="symbol-btn-back-to-top">
@@ -283,7 +282,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</span>
 	</div>
 
-	<!-- Modal1 -->
+	<!-- Modal1 popup-quickview -->
 	<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
 		<div class="overlay-modal1 js-hide-modal1"></div>
 
@@ -334,11 +333,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Lightweight Jacket
+							<h4 class="mtext-105 cl2 js-name-detail p-b-14" id="product-name">
+								
 							</h4>
 
 							<span class="mtext-106 cl2">
