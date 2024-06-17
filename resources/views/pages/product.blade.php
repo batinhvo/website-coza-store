@@ -51,7 +51,7 @@
                         </li>
 
                         <li class="active-menu">
-                            <a href="{{URL::to('/product')}}">Shop</a>
+                            <a href="{{route('product')}}">Shop</a>
                         </li>
 
                         <li class="label1" data-label1="hot">
@@ -160,7 +160,7 @@
             </li>
 
             <li>
-                <a href="{{URL::to('/product')}}">Shop</a>
+                <a href="{{route('product')}}">Shop</a>
             </li>
 
             <li>
@@ -443,12 +443,12 @@
 
                     <div class="block2-txt flex-w flex-t p-t-14">
                         <div class="block2-txt-child1 flex-col-l ">
-                            <a href="{{URL::to('/product-detail')}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                            <a href="{{ route('product-detail', [$pro->pro_slug, $pro->pro_id])}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                 {{$pro->pro_name}}
                             </a>
 
                             <span class="stext-105 cl3">
-                                {{$pro->pro_price}}
+                                ${{$pro->pro_price}}
                             </span>
                         </div>
 

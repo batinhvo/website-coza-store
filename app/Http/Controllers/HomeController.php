@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\tbl_products;
 use Session;
 use DB;
 session_start();
@@ -21,6 +22,8 @@ class HomeController extends Controller
         $all_pro = DB::table('tbl_products')
                     ->join('category_products', 'tbl_products.cate_id', '=', 'category_products.cate_id')      
                     ->where('pro_status', 1)
+                    ->inRandomOrder()
+                    ->limit(8)
                     ->get();     
                         
         $cate_show = view('pages/home')->with('cate_show', $cate_pro)->with('pro_show', $all_pro);
@@ -43,9 +46,26 @@ class HomeController extends Controller
     }
 
     // product detail -------------------------------------------------------
-    public function product_details() {
-        return view('layout')->with('pages/productDetails');
+    public function product_details($pro_name, $pro_id) {
+        $products = DB::table('tbl_products')
+                    ->join('category_products', 'tbl_products.cate_id', '=', 'category_products.cate_id')      
+                    ->where('tbl_products.pro_id', $pro_id)
+                    ->get();    
+
+        $data = view('pages/productDetails')->with('products', $products);            
+
+        return view('layout')->with('pages/productDetails', $data);
     } 
+
+    // product view ----------------------------------------------------
+    public function quick_view_products($pro_id) {
+        $product = DB::table('tbl_products')
+                    ->join('tbl_product_sizes', 'tbl_products.pro_id', '=', 'tbl_product_sizes.pro_id')     
+                    ->where('tbl_products.pro_id', $pro_id)
+                    ->first(); 
+        // Trả về tên sản phẩm dưới dạng JSON
+        return response()->json($product);
+    }
 
     // about ----------------------------------------------------------------
     public function about() {

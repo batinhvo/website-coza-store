@@ -51,7 +51,7 @@
                         </li>
 
                         <li>
-                            <a href="{{URL::to('/product')}}">Shop</a>
+                            <a href="{{route('product')}}">Shop</a>
                         </li>
 
                         <li class="label1" data-label1="hot">
@@ -157,7 +157,7 @@
             </li>
 
             <li>
-                <a href="{{URL::to('/product')}}">Shop</a>
+                <a href="{{route('product')}}">Shop</a>
             </li>
 
             <li>

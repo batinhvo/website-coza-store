@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use App\Http\Requests;
 use Carbon\Carbon;
 use Validator;
@@ -47,7 +48,8 @@ class ProductController extends Controller
             return back()->withErrors($validator)->withInput();
         }       
 
-        $proId = rand(0,99999);   
+        $proId = rand(0,99999);  
+        $proSlug = Str::slug($request->product_name, "-");
 
         $data = array();
         $data['pro_id'] = $proId;
@@ -56,6 +58,7 @@ class ProductController extends Controller
         $data['pro_name'] = $request->product_name;
         $data['pro_price'] = $request->product_price;
         $data['pro_desc'] = $request->product_desc;
+        $data['pro_slug'] = $proSlug;
         $data['pro_status'] = $status;
         $data['created_at'] = $date->toDateTimeString();
         $get_image = $request->file('product_img');
@@ -65,12 +68,9 @@ class ProductController extends Controller
             $new_img = $name_img.'.'.$get_image->getClientOriginalExtension();
             $get_image->move('public/upload/products', $new_img);
             $data['pro_img'] = $new_img;
-            DB::table('tbl_products')->insert($data);
-            Session::put('message', 'Added product successfully!');
-            return Redirect::to('add-product');
-            echo $name_img;
+        } else {
+            $data['pro_img'] = 'product-images.jpg';
         }
-        $data['pro_img'] = 'product-images.jpg';
         DB::table('tbl_products')->insert($data);
 
         foreach ($request->product_size as $key => $val) {
@@ -130,12 +130,14 @@ class ProductController extends Controller
     public function update_products(Request $request, $pro_id) {
         $date = Carbon::now('Asia/Ho_Chi_Minh');
         $old_img = DB::table('tbl_products')->where('pro_id', $pro_id)->value('pro_img');
+        $proSlug = Str::slug($request->product_name, "-");
 
         $data = array();
         $data['cate_id'] = $request->category_product_id;
         $data['pro_name'] = $request->product_name;
         $data['pro_price'] = $request->product_price;  
         $data['pro_desc'] = $request->product_desc;
+        $data['pro_slug'] = $proSlug;
         $data['updated_at'] = $date->toDateTimeString();
         $get_image = $request->file('product_img');
 

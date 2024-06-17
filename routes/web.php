@@ -26,8 +26,8 @@ Route::get('/view-product/{pro_id}', [HomeController::class, 'quick_view_product
 Route::get('/about', [HomeController::class, 'about']);
 
 //---------------------------------PRODUCT-----------------------------------------// 
-Route::get('/product', [HomeController::class, 'products']);
-Route::get('/product-detail', [HomeController::class, 'product_details']);
+Route::get('/shop', [HomeController::class, 'products'])->name('product');
+Route::get('/product-detail/{pro_name}/{pro_id}', [HomeController::class, 'product_details'])->name('product-detail');
 //---------------------------------CONTACT-----------------------------------------// 
 Route::get('/contact', [HomeController::class, 'contact']);
 
