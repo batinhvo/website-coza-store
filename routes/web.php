@@ -2,17 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\adminController;
+use App\Http\Controllers\categoryController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+|------------------------- USER VIEWS -------------------------------------
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
-Route::get('/', [homeController::class, 'index']);
-Route::get('/home', [homeController::class, 'index']);
+Route::get('/', [homeController::class, 'showHome']);
+Route::get('/home', [homeController::class, 'showHome']);
+
+
+/*
+|--------------------------------------------------------------------------
+|------------------------- ADMIN VIEWS ------------------------------------
+|--------------------------------------------------------------------------
+*/
+
+// ------------------------- DASHBOARD ------------------------------------
+Route::get('dashboard', [adminController::class, 'show_dashboard']);
+
+// ------------------------- DASHBOARD ------------------------------------
+Route::get('all-category-products', [categoryController::class, 'show_category_products']);
